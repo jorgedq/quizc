@@ -1,8 +1,9 @@
 class QuestionInputHandler(object):
     MENU_PROMPT = "> "
-
+    count_question = 1
     def ask_question_value(self, question):
-        print("Question:" + question.title)
+        print("# Question "+ str(self.count_question) +": " + question.title)
+        self.count_question += 1
         return self.get_answer(question)
 
     def get_answer(self, question):

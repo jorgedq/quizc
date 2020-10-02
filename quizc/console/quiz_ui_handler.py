@@ -15,7 +15,8 @@ class QuizUIHandler(object):
     def fill_quiz(quiz) -> QuizAnswer:
         quiz_answer = QuizAnswer(quiz)
         question_handler = QuestionInputHandler()
-        print("Quiz:" + quiz.title)
+        print("\tQuiz: " + quiz.title)
+
         for question in quiz.questions:
             answers = question_handler.ask_question_value(question)
             answer = Answer(answers, question)
@@ -25,9 +26,14 @@ class QuizUIHandler(object):
 
     @staticmethod
     def show_quiz(quiz_answer):
-        print(quiz_answer.quiz.title)
+        print("\tQuiz: "+ quiz_answer.quiz.title)
         print("=============================================")
+        print("\n")
+        count = 1
         for answer in quiz_answer.answers:
-            print(answer)
+            print("# Question "+str(count)+":"+ answer.question.title)
+            print("\tAnswer.- "+ answer.answers[0])
+            print("\n")
+            count += 1
 
         return quiz_answer
