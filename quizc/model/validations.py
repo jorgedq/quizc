@@ -20,6 +20,12 @@ class DateValidator(object):
         except ValueError:
             errors.append(self.MESSAGE)
 
+class UpperCaseValidator(object):
+    MESSAGE = "The value is not upper case"
+
+    def validate(self, value,condition_value,errors):
+        if not value.isupper():
+            errors.append(self.MESSAGE)
 
 class MinValidator(object):
     MESSAGE = "The value must be greater than {min_value}"
@@ -28,20 +34,44 @@ class MinValidator(object):
         if value < condition_value:
             errors.append(self.MESSAGE.format(min_value=condition_value))
 
+class MaxValidator(object):
+    MESSAGE = "The value must be less than {max_value}"
+
+    def validate(self, value, condition_value, errors):
+        if value > condition_value:
+            errors.append(self.MESSAGE.format(max_value=condition_value))
+
+
+class MaxLengthValidator(object):
+    MESSAGE = "The length of the value must be less than {max_length}"
+
+    def validate(self, value, condition_value, errors):
+        if len(value) > condition_value:
+            errors.append(self.MESSAGE.format(max_length=condition_value))
 
 class MinLengthValidator(object):
-    MESSAGE = "The value length must be less than {max_length}"
+    MESSAGE = "The value length must be greater than {min_length}"
 
     def validate(self, value, condition_value, errors):
         if len(value) < condition_value:
-            errors.append(self.MESSAGE.format(max_length=condition_value))
+            errors.append(self.MESSAGE.format(min_length=condition_value))
 
+class NumericValidator(object):
+    MESSAGE = "The value entered is not a number"
+
+    def validate(self, value, condition_value, errors):
+        if not type(value) is int:
+            errors.append(self.MESSAGE)
 
 class ValidatorType(Enum):
     REQUIRED = (1, RequiredValidator())
     DATE = (2, DateValidator())
     MIN = (3, MinValidator())
     MIN_LENGTH = (4, MinLengthValidator())
+    NUMERIC = (5, NumericValidator())
+    MAX_LENGTH = (6, MaxLengthValidator())
+    UPPER_CASE = (7, UpperCaseValidator())
+    MAX = (8, MaxValidator())
 
     def __init__(self, code, validator_instance):
         self.code = code
