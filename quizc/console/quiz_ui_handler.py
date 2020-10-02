@@ -28,12 +28,10 @@ class QuizUIHandler(object):
     def show_quiz(quiz_answer):
         print("\tQuiz: "+ quiz_answer.quiz.title)
         print("=============================================")
-        print("\n")
         count = 1
         for answer in quiz_answer.answers:
             print("# Question "+str(count)+":"+ answer.question.title)
             print("\tAnswer.- "+ answer.answers[0])
-            print("\n")
             count += 1
 
         return quiz_answer
